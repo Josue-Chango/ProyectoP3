@@ -1,20 +1,13 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-h1 {
-  color: #333;
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#listaLibros {
-  margin-top: 20px;
-}
-
-.libro {
-  background: white;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+.list-group-item button {
+  margin-left: 10px;
 }
