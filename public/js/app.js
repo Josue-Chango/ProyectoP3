@@ -187,7 +187,7 @@ function buscar() {
 
 function recordarDevolucion(usuario, libro) {
   setTimeout(() => {
-    agregarNotificacion(`⏰ Recordatorio: ${usuario}, debe devolver el libro "${libro.titulo}" pronto.`);
+    agregarNotificacion(`Recordatorio: ${usuario}, debe devolver el libro "${libro.titulo}" pronto.`);
   }, 5000); // Simulación de 5 segundos
 }
 
