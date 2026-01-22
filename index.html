@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Biblioteca Digital</title>
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="styles.css">
 
 </head>
+
 <body class="bg-light">
 
   <header class="bg-dark text-white py-3 mb-4">
@@ -19,20 +21,21 @@
     </div>
   </header>
 
-    <!-- <main>
+  <!-- <main>
         <input type="text" id="busqueda" placeholder="Buscar libro...">
         <div id="listaLibros"></div>
     </main> -->
 
-    <main class="container">
+  <main class="container">
     <section class="mb-4">
       <div class="input-group">
-        <input type="text" id="busqueda" class="form-control" placeholder="Buscar por título, autor o género">
+        <input type="text" id="busqueda" class="form-control" placeholder="Buscar por título, autor o género"
+          onfocus="agregarNotificacion('Buscando libros...')" onblur="agregarNotificacion('Búsqueda finalizada')">
         <button class="btn btn-primary" onclick="buscar()">Buscar</button>
       </div>
     </section>
 
- 
+
     <section class="row">
       <article class="col-md-6 mb-3">
         <div class="card shadow-sm">
@@ -49,7 +52,7 @@
     </section>
 
 
- <section class="mt-4">
+    <section class="mt-4">
       <div class="card shadow-sm">
         <div class="card-header bg-info text-white">Notificaciones</div>
         <ul id="listaNotificaciones" class="list-group list-group-flush"></ul>
@@ -62,8 +65,9 @@
     <p>&copy; 2026 Biblioteca Digital | Proyecto académico con HTML, CSS, JavaScript y Bootstrap</p>
   </footer>
 
-  
-    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
   <script src="public/js/app.js"></script>
 </body>
+
 </html>

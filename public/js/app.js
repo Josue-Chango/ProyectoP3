@@ -97,26 +97,24 @@ let libros = [
 let prestamos = [];
 let notificaciones = [];
 
+const CONFIG = Object.freeze({
+  tiempoReserva: 2000,
+  tiempoRecordatorio: 5000
+});
 
-function mostrarLibros() {
-  let lista = document.getElementById("listaLibros");
-  lista.innerHTML = "";
-  libros.forEach(libro => {
-    let item = document.createElement("li");
-    item.className = "list-group-item d-flex justify-content-between align-items-center";
-    item.textContent = `${libro.titulo} - ${libro.autor} (${libro.disponible ? "Disponible" : "Prestado"})`;
 
-    if (libro.disponible) {
-      let btn = document.createElement("button");
-      btn.className = "btn btn-sm btn-outline-primary";
-      btn.textContent = "Reservar";
-      btn.onclick = () => reservarLibro("Usuario1", libro.id);
-      item.appendChild(btn);
-    }
-    lista.appendChild(item);
-  });
+class Prestamo {
+  constructor(usuario, libro) {
+    this.usuario = usuario;
+    this.libro = libro;
+    this.fecha = new Date();
+  }
 }
 
+
+function mostrarLibros() {
+  renderLibros(libros);
+}
 
 function mostrarPrestamos() {
   let lista = document.getElementById("listaPrestamos");
@@ -140,7 +138,7 @@ function reservarLibro(usuario, idLibro) {
   let libro = libros.find(l => l.id === idLibro && l.disponible);
   if (libro) {
     libro.disponible = false;
-    prestamos.push({ usuario, libro, fecha: new Date() });
+    prestamos.push(new Prestamo(usuario, libro));
     agregarNotificacion(`Reserva exitosa: ${libro.titulo}`);
     mostrarLibros();
     mostrarPrestamos();
@@ -162,33 +160,48 @@ async function devolverLibro(usuario, idLibro) {
         mostrarPrestamos();
         resolve();
       }
-    }, 2000); // Simula tiempo de espera
+    }, CONFIG.tiempoReserva); // Simula tiempo de espera
   });
 }
 
 function buscar() {
-  let valor = document.getElementById("busqueda").value;
+  let valor = document.getElementById("busqueda").value.toLowerCase();
   let resultados = libros.filter(libro =>
-    libro.titulo.toLowerCase().includes(valor.toLowerCase()) ||
-    libro.autor.toLowerCase().includes(valor.toLowerCase()) ||
-    libro.genero.toLowerCase().includes(valor.toLowerCase())
+    libro.titulo.toLowerCase().includes(valor) ||
+    libro.autor.toLowerCase().includes(valor) ||
+    libro.genero.toLowerCase().includes(valor)
   );
 
+  renderLibros(resultados);
+}
+
+function renderLibros(listaLibros) {
   let lista = document.getElementById("listaLibros");
   lista.innerHTML = "";
-  resultados.forEach(libro => {
+
+  listaLibros.forEach(libro => {
     let item = document.createElement("li");
-    item.className = "list-group-item";
+    item.className = "list-group-item d-flex justify-content-between align-items-center";
     item.textContent = `${libro.titulo} - ${libro.autor} (${libro.disponible ? "Disponible" : "Prestado"})`;
+
+    if (libro.disponible) {
+      let btn = document.createElement("button");
+      btn.className = "btn btn-sm btn-outline-primary";
+      btn.textContent = "Reservar";
+      btn.onclick = () => reservarLibro("Usuario1", libro.id);
+      item.appendChild(btn);
+    }
+
     lista.appendChild(item);
   });
 }
 
 
+
 function recordarDevolucion(usuario, libro) {
   setTimeout(() => {
     agregarNotificacion(`Recordatorio: ${usuario}, debe devolver el libro "${libro.titulo}" pronto.`);
-  }, 5000); // Simulación de 5 segundos
+  }, CONFIG.tiempoRecordatorio); // Simulación de 5 segundos
 }
 
 function agregarNotificacion(mensaje) {
@@ -199,6 +212,23 @@ function agregarNotificacion(mensaje) {
   item.textContent = mensaje;
   lista.appendChild(item);
 }
+
+function obtenerTitulosDisponibles() {
+  return libros
+    .filter(l => l.disponible)
+    .map(l => l.titulo);
+}
+
+function contarPrestamos() {
+  return prestamos.reduce((total) => total + 1, 0);
+}
+
+(function iniciarSistema() {
+  agregarNotificacion("Sistema de Biblioteca iniciado");
+  mostrarLibros();
+  mostrarPrestamos();
+})();
+
 
 mostrarLibros();
 mostrarPrestamos();
