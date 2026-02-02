@@ -23,6 +23,8 @@
   "homepage": "https://github.com/Josue-Chango/ProyectoP3#readme",
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "express": "^5.2.1",
     "vite": "^7.3.1"
-  }
+  },
+  "devDependencies": {}
 }

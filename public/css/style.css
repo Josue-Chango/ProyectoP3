@@ -1,13 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.list-group-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  min-height: 100vh; /* asegura que ocupe toda la pantalla */
 }
 
-.list-group-item button {
-  margin-left: 10px;
+main {
+  flex: 1; /* ocupa el espacio restante */
+}
+
+footer {
+  margin-top: auto; /* empuja el footer al fondo */
 }

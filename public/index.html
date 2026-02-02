@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Biblioteca Digital</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+  <!-- Estilos locales -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+  <header class="bg-dark text-white py-3 mb-4">
+    <div class="container">
+      <h1 class="text-center">Biblioteca Digital</h1>
+      <p class="text-center">Sistema de gestión de préstamos y devoluciones</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Buscador -->
+    <section class="mb-4">
+      <div class="input-group">
+        <input type="text" id="busqueda" class="form-control"
+               placeholder="Buscar por título, autor o género"
+               onfocus="agregarNotificacion('Buscando libros...')"
+               onblur="agregarNotificacion('Búsqueda finalizada')">
+        <button class="btn btn-primary" onclick="buscar()">Buscar</button>
+      </div>
+    </section>
+
+    <!-- Listas de libros -->
+    <section class="row">
+      <article class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">Libros Disponibles</div>
+          <ul id="listaLibros" class="list-group list-group-flush"></ul>
+        </div>
+      </article>
+      <article class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+          <div class="card-header bg-success text-white">Libros Prestados</div>
+          <ul id="listaPrestamos" class="list-group list-group-flush"></ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- Notificaciones -->
+    <section class="mt-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">Notificaciones</div>
+        <ul id="listaNotificaciones" class="list-group list-group-flush"></ul>
+      </div>
+    </section>
+
+    <!-- Formulario solo para administrador -->
+    <section class="mt-4" id="adminSection" style="display:none;">
+      <div class="card shadow-sm">
+        <div class="card-header bg-warning text-dark">Agregar Libro (Administrador)</div>
+        <div class="card-body">
+          <form id="formAgregarLibro" onsubmit="agregarLibro(event)">
+            <div class="mb-3">
+              <label for="titulo" class="form-label">Título</label>
+              <input type="text" id="titulo" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="autor" class="form-label">Autor</label>
+              <input type="text" id="autor" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="genero" class="form-label">Género</label>
+              <input type="text" id="genero" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Agregar Libro</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    <p>&copy; 2026 Biblioteca Digital | Proyecto académico con HTML, CSS, JavaScript y Bootstrap</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
