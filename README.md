@@ -97,54 +97,12 @@ NOTIFICACIONES
 
 -------------------------------------------------------
 
-## Estructuras de Datos
-
-Se utilizan arreglos:
-
-let libros = []  
-let usuarios = []  
-let prestamos = []  
-
-Métodos utilizados:
-
-push()  
-filter()  
-find()  
-some()  
-map()  
-splice()  
-
--------------------------------------------------------
-
-## Programación Asíncrona
-
-Se usa async / await junto con fetch:
-
-const res = await fetch("/api/libros")
-
--------------------------------------------------------
-
-## Actualización Automática
-
-setInterval(cargarDatos, 60000)
-
--------------------------------------------------------
-
-## Alertas
-
-Se utiliza SweetAlert2:
-
-Swal.fire("Éxito","Libro agregado","success")
-
--------------------------------------------------------
-
 ## Cómo Ejecutar el Proyecto
 
 1. Instalar Node.js  
 2. Abrir consola en la carpeta del proyecto  
 3. Ejecutar:
 
- 
 npm install  
 node server.js 
 
@@ -153,8 +111,6 @@ node server.js
 http://localhost:3000  
 
 -------------------------------------------------------
-
-
 
 ## Autor
 
