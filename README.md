@@ -159,8 +159,8 @@ http://localhost:3000
 ## Autor
 
 Proyecto desarrollado por:  
-Josue Chango
-Adonnys Calero
+Josue Chango,
+Adonnys Calero,
 Fernando Tipan
 
 -------------------------------------------------------
