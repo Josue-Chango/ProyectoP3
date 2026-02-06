@@ -2,89 +2,160 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Biblioteca Digital</title>
-
-  <!-- Bootstrap -->
+  <title>Panel de Administracion - Biblioteca</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
-  <!-- Estilos locales -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-light">
 
   <header class="bg-dark text-white py-3 mb-4">
     <div class="container">
-      <h1 class="text-center">Biblioteca Digital</h1>
-      <p class="text-center">Sistema de gestión de préstamos y devoluciones</p>
+      <h1 class="text-center">Panel de Administracion - Biblioteca</h1>
+      <p class="text-center">Gestion de libros, usuarios y prestamos</p>
     </div>
   </header>
 
   <main class="container">
-    <!-- Buscador -->
-    <section class="mb-4">
-      <div class="input-group">
-        <input type="text" id="busqueda" class="form-control"
-               placeholder="Buscar por título, autor o género"
-               onfocus="agregarNotificacion('Buscando libros...')"
-               onblur="agregarNotificacion('Búsqueda finalizada')">
-        <button class="btn btn-primary" onclick="buscar()">Buscar</button>
+    
+    <div class="row mb-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Agregar Libro</h5>
+          </div>
+          <div class="card-body">
+            <form id="formAgregarLibro" onsubmit="agregarLibro(event)">
+              <div class="mb-3">
+                <label for="titulo" class="form-label">Titulo del libro:</label>
+                <input type="text" id="titulo" class="form-control" placeholder="Ej: Harry Potter" required>
+              </div>
+              <div class="mb-3">
+                <label for="autor" class="form-label">Autor:</label>
+                <input type="text" id="autor" class="form-control" placeholder="Ej: J.K. Rowling" required>
+              </div>
+              <div class="mb-3">
+                <label for="genero" class="form-label">Genero:</label>
+                <input type="text" id="genero" class="form-control" placeholder="Ej: Fantasia" required>
+              </div>
+              <button type="submit" class="btn btn-success w-100">Guardar Libro</button>
+            </form>
+          </div>
+        </div>
       </div>
-    </section>
 
-    <!-- Listas de libros -->
-    <section class="row">
-      <article class="col-md-6 mb-3">
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">Registrar Usuario</h5>
+          </div>
+          <div class="card-body">
+            <form id="formAgregarUsuario" onsubmit="agregarUsuario(event)">
+              <div class="mb-3">
+                <label for="nombreUsuario" class="form-label">Nombre completo:</label>
+                <input type="text" id="nombreUsuario" class="form-control" placeholder="Ej: Juan Perez" required minlength="3">
+              </div>
+              <div class="mb-3">
+                <label for="emailUsuario" class="form-label">Email:</label>
+                <input type="email" id="emailUsuario" class="form-control" placeholder="Ej: juan@email.com" required>
+              </div>
+              <button type="submit" class="btn btn-warning w-100">Registrar Usuario</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Realizar Prestamo</h5>
+          </div>
+          <div class="card-body">
+            <form id="formPrestamo" onsubmit="realizarPrestamo(event)">
+              <div class="mb-3">
+                <label for="usuarioPrestamo" class="form-label">Seleccionar Usuario:</label>
+                <select id="usuarioPrestamo" class="form-select" required>
+                  <option value="">Elige un usuario...</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="libroPrestamo" class="form-label">Seleccionar Libro:</label>
+                <select id="libroPrestamo" class="form-select" required>
+                  <option value="">Elige un libro disponible...</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-success w-100">Prestar Libro</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
         <div class="card shadow-sm">
-          <div class="card-header bg-primary text-white">Libros Disponibles</div>
-          <ul id="listaLibros" class="list-group list-group-flush"></ul>
+          <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Libros Disponibles</h5>
+          </div>
+          <div class="card-body">
+            <div id="listaLibros" class="list-group">
+            </div>
+          </div>
         </div>
-      </article>
-      <article class="col-md-6 mb-3">
+      </div>
+
+      <div class="col-md-6">
         <div class="card shadow-sm">
-          <div class="card-header bg-success text-white">Libros Prestados</div>
-          <ul id="listaPrestamos" class="list-group list-group-flush"></ul>
-        </div>
-      </article>
-    </section>
-
-    <!-- Notificaciones -->
-    <section class="mt-4">
-      <div class="card shadow-sm">
-        <div class="card-header bg-info text-white">Notificaciones</div>
-        <ul id="listaNotificaciones" class="list-group list-group-flush"></ul>
-      </div>
-    </section>
-
-    <!-- Formulario solo para administrador -->
-    <section class="mt-4" id="adminSection" style="display:none;">
-      <div class="card shadow-sm">
-        <div class="card-header bg-warning text-dark">Agregar Libro (Administrador)</div>
-        <div class="card-body">
-          <form id="formAgregarLibro" onsubmit="agregarLibro(event)">
-            <div class="mb-3">
-              <label for="titulo" class="form-label">Título</label>
-              <input type="text" id="titulo" class="form-control" required>
+          <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Usuarios Registrados</h5>
+          </div>
+          <div class="card-body">
+            <div id="listaUsuarios" class="list-group">
             </div>
-            <div class="mb-3">
-              <label for="autor" class="form-label">Autor</label>
-              <input type="text" id="autor" class="form-control" required>
-            </div>
-            <div class="mb-3">
-              <label for="genero" class="form-label">Género</label>
-              <input type="text" id="genero" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-success">Agregar Libro</button>
-          </form>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">Prestamos Activos</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>Usuario</th>
+                  <th>Libro</th>
+                  <th>Fecha Prestamo</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tablaPrestamos">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-header bg-light">
+        <h5 class="mb-0">Notificaciones del Sistema</h5>
+      </div>
+      <div class="card-body">
+        <ul id="listaNotificaciones" class="list-group">
+        </ul>
+      </div>
+    </div>
+
   </main>
 
   <footer class="bg-dark text-white text-center py-3 mt-4">
-    <p>&copy; 2026 Biblioteca Digital | Proyecto académico con HTML, CSS, JavaScript y Bootstrap</p>
+    <p>Sistema de Biblioteca - Hecho con amor por un estudiante aprendiendo programacion</p>
   </footer>
 
-  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/app.js"></script>
 </body>

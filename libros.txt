@@ -1,0 +1,8 @@
+1|1984|George Orwell|Ficción|true
+2|El Principito|Antoine de Saint-Exupéry|Infantil|false
+3|Cien Años de Soledad|Gabriel García Márquez|Realismo Mágico|true
+4|Don Quijote de la Mancha|Miguel de Cervantes|Clásico|true
+5|La Odisea|Homero|Clásico|true
+6|Hamlet|William Shakespeare|Drama|true
+7|Orgullo y Prejuicio|Jane Austen|Romance|true
+8|El Alquimista|Paulo Coelho|Ficción|true
